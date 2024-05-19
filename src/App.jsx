@@ -1,29 +1,68 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import {TASK1 ,TASK3 ,TASK2} from "./components"
+import React , {useState} from 'react'
 import './App.css'
 
 function App() {
+const [arr ,setArr] = useState([]);
+// useEffect(() => {
+//   console.log(arr);
+// }, [arr]);
 
-  return (
-    <Router>
-     <div>
-      <nav>
-        <ul className='flex justify-center gap-[25px] '>
-        <li><Link to="/task1" className='text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-7 py-5 text-center  me-2 mb-2'>TASK-1</Link></li>
-        <li><Link to="/task2" className='text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-7 py-5 text-center  me-2 mb-2'>TASK-2</Link></li>
-        <li><Link to="/task3" className='text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-7 py-5 text-center  me-2 mb-2'>TASK-3</Link></li>
-        </ul>
-      </nav>
+const handleSubmit =(e)=>{
+  e.preventDefault();
+const name = (e.target[0].value)
+const sur = (e.target[1].value)
+const num = (e.target[2].value)
+const add = (e.target[3].value)
+const newArr = [...arr,{ name, sur, num ,add}];
+setArr(newArr);
+e.target.reset();
 
 
-      <Routes>
-          <Route path='/task1' element={<TASK1 />} />
-          <Route path='/task2' element={<TASK2 />} />
-          <Route path='/task3' element={<TASK3 />} />
-        </Routes>
-        </div>
-    </Router>
-  )
+
+
+
+}
+
+  return <>
+  <div className="container">
+    <div className="card flex justify-between">
+  <div className="card_header">
+  <table>
+  <tr className='border '>
+    <th className='border border-black p-[5px] '>N%</th>
+    <th className='border border-black p-[5px] '>NAME</th>
+    <th className='border border-black p-[5px] '>SURNAME</th>
+    <th className='border border-black p-[5px] '>PHONE NUMBER</th>
+    <th className='border border-black p-[5px] '>ADRESS</th>
+  </tr>
+  <tbody>
+       {arr.map((item, index) => (
+        <tr key={index}>
+          <td className='border border-black p-[5px]'>{index + 1}</td>
+          <td className='border border-black p-[5px]'>{item.name}</td>
+          <td className='border border-black p-[5px]'>{item.sur}</td>
+          <td className='border border-black p-[5px]'>{item.num}</td>
+          <td className='border border-black p-[5px]'>{item.add}</td>
+        </tr>
+      ))}
+  </tbody>
+</table>
+</div>
+      <div className="card_body className='flex flex-col justify-center text-center border border-black gap-3 p-[20px] bg-[silver] ">
+        <h1 className='text-[36px] font-bold'>LOGIN !</h1>
+        <form id='form' onSubmit={handleSubmit} className='flex flex-col'>
+        <input type="text" required id="" placeholder='NAME' className='border border-black outline-none'/>
+        <input type="text" required id="" placeholder='SURNAME' className='border border-black outline-none'/>
+        <input type="number" required id="" placeholder='PHONE NUMBER' className='border border-black outline-none'/>
+        <input type="text" required id="" placeholder='ADRESS' className='border border-black outline-none'/>
+        <button type='submit' className='bg-[#01112255] text-white text-[22px] mt-[25px]'>SUBMIT</button>
+        </form>
+        
+      </div>
+     
+  </div>
+  </div>
+  </>
 }
 
 export default App
